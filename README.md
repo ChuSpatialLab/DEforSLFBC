@@ -51,26 +51,17 @@ corresponding crop of the short-focal image.
 
 ### Evaluation Example
 
-The following bundled sample `000030` shows the rectified RGB input, the
-full-frame depth estimated by the released checkpoints, the semi-dense LiDAR
-ground truth, and the corresponding relative-error map. In the displayed
-estimated-depth preview only, pixels selected by `sky_mask.png` are set to zero.
+Bundled sample `000030` is shown as a 2x2 grid: RGB input (top left),
+semi-dense LiDAR ground truth (top right), estimated depth (bottom left), and
+relative-error map (bottom right). Ground-truth pixels are evaluated over
+`0 < depth < 100 m`; pixels without valid LiDAR supervision are dark gray. The
+displayed estimated depth has `sky_mask.png` pixels set to zero. Both depth
+maps use the fixed `0-100 m` scale (near is warm, far is cool), and relative
+error is clipped at `0.25`. This frame has `38.7%` valid ground-truth coverage
+and a valid-pixel AbsRel of `0.0215`.
 
 <p align="center">
-  <img src="docs/assets/inference-example-000030.png" width="1000" alt="Rectified RGB input and DEforSLFBC estimated depth">
-</p>
-
-The ground truth is not a dense depth image: dark-gray pixels have no valid LiDAR
-supervision after camera projection, occlusion filtering, or the
-`0 < depth < 100 m` metric-range filter. Valid ground truth covers `38.7%` of
-this frame. The two maps below retain the native `1280x768` resolution and are
-stacked vertically to avoid suppressing sparse LiDAR pixels through horizontal
-downsampling. Depth uses a fixed `0-100 m` scale (near is warm, far is cool),
-invalid pixels are dark gray, and relative error is clipped at `0.25`. The
-valid-pixel AbsRel is `0.0215`.
-
-<p align="center">
-  <img src="docs/assets/result-example-000030.png" width="1000" alt="Ground-truth depth and corresponding DEforSLFBC error map">
+  <img src="docs/assets/evaluation-example-000030.png" width="1200" alt="Sample 000030 RGB, ground truth, estimated depth, and relative-error map">
 </p>
 
 ## Repository Layout

@@ -76,8 +76,7 @@ def main() -> None:
         "acquisition-platform.png": (1278, 1940),
         "captured-image-pair.png": (854, 2566),
         "rectified-image-pair.png": (914, 2452),
-        "inference-example-000030.png": (1660, 1280),
-        "result-example-000030.png": (1660, 1280),
+        "evaluation-example-000030.png": (1660, 2576),
     }
     asset_root = ROOT / "docs" / "assets"
     for name, expected_shape in expected_readme_assets.items():
