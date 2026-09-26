@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "purpose": "inference-only checkpoints; no optimizer or scheduler state",
+  "files": {
+    "fusion.pth": {
+      "bytes": 31802148,
+      "sha256": "12d0e232c6339fa6b1675d0d148b3fd1e402c1d31dc063b693f1d4f10023b07d"
+    },
+    "mono.pth": {
+      "bytes": 389942722,
+      "sha256": "9322c7a4eab0ae7cb8121216a406c8f5bcefed0f120e224febc518403c771c5d"
+    },
+    "stereo.pth": {
+      "bytes": 50785135,
+      "sha256": "8de673ffb490ffab5a60f019b309a7ceec78146a7918a8281cfbab293256ed0c"
+    }
+  }
+}

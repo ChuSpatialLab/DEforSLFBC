@@ -1,0 +1,62 @@
+# Repository assets above the 100 MB upload limit
+/checkpoints/mono.pth
+
+# Python bytecode and tool caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Local Python environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging and build products
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Generated inference, evaluation, and training outputs
+/outputs/
+/output/
+/runs/
+/logs/
+/wandb/
+/tensorboard/
+/.tmp/
+/tmp/
+/temp/
+/.release-smoke/
+*.log
+*.ckpt
+*.pth.tar
+*.onnx
+*.engine
+
+# Notebook and editor state
+.ipynb_checkpoints/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary and operating-system files
+*.tmp
+*.temp
+*.bak
+.DS_Store
+Thumbs.db
