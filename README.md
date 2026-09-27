@@ -237,10 +237,10 @@ The output directory contains:
 
 ## Release-Set Evaluation
 
-Run a one-sample smoke test:
+Run a quick one-sample validation:
 
 ```bash
-python evaluate.py --limit 1 --output outputs/smoke --device cuda:0
+python evaluate.py --limit 1 --output outputs/quick-check --device cuda:0
 ```
 
 Evaluate all 100 bundled samples:
