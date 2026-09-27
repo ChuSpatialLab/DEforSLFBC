@@ -57,8 +57,7 @@ relative-error map (bottom right). Ground-truth pixels are evaluated over
 `0 < depth < 100 m`; pixels without valid LiDAR supervision are dark gray. The
 displayed estimated depth has `sky_mask.png` pixels set to zero. Both depth
 maps use the fixed `0-100 m` scale (near is warm, far is cool), and relative
-error is clipped at `0.25`. This frame has `38.7%` valid ground-truth coverage
-and a valid-pixel AbsRel of `0.0215`.
+error is clipped at `0.25`. This frame has `38.7%` valid ground-truth coverage.
 
 <p align="center">
   <img src="docs/assets/evaluation-example-000030.png" width="1200" alt="Sample 000030 RGB, ground truth, estimated depth, and relative-error map">
@@ -71,7 +70,7 @@ checkpoints/                 Three independent inference checkpoints
 docs/assets/                 Permanent README figures
 src/deforslfbc/              End-to-end inference and fusion implementation
 third_party/                 Monocular and stereo model implementations
-test_data/                   100 low-similarity release samples
+test_data/                   100 release samples
 infer.py                     Single-sample end-to-end inference
 evaluate.py                  Release-set inference and metric evaluation
 scripts/verify_release.py    Release integrity verifier
@@ -79,10 +78,8 @@ scripts/verify_release.py    Release integrity verifier
 
 ## Release Data
 
-All collection-date directories have been removed. The selected samples from
-the source groups are interleaved into a single sequential namespace from
-`000000` through `000099`. Each directory contains one complete, aligned
-sample:
+The selected samples from the source groups are interleaved into a single sequential namespace from
+`000000` through `000099`. Each directory contains one complete, aligned sample:
 
 ```text
 test_data/000000/
@@ -91,11 +88,6 @@ test_data/000000/
 |-- ground_truth.png
 `-- sky_mask.png
 ```
-
-The inference code uses the same right-image processing as the current dataset
-generator. It keeps the width at `1920`, resizes only the height from `1152` to
-`384` with OpenCV bilinear interpolation, and then performs the horizontal
-`phase::3` split. This produces three ordered `640x384` phase images.
 
 Ground truth is stored as uint16 PNG and decoded with:
 
@@ -107,11 +99,6 @@ Official metrics use pixels satisfying `0 < depth < 100 m`. `sky_mask.png` is
 a uint8 full-frame mask aligned with the left image. Its resolution is
 `1280x768`, and its values are 0 or 255.
 
-The 100 release samples were selected from 200 candidates. Collection type was
-not restricted to outdoor scenes. The retained subset excludes directly
-adjacent frames and favors scene diversity. Collection dates and source
-sequence identifiers are intentionally omitted from the release layout and
-manifest.
 
 ## Checkpoints
 
@@ -124,11 +111,10 @@ The three checkpoints remain separate and are not merged:
 | `checkpoints/fusion.pth` | Fusion | Full-frame LUT-based depth fusion |
 
 The checkpoint files contain only model states, architecture configuration,
-and calibration metadata required for inference. They do not contain optimizer,
-scheduler, or gradient-scaler state. Exact sizes and hashes are recorded in
+and calibration metadata required for inference. Exact sizes and hashes are recorded in
 `checkpoints/manifest.json`.
 
-The original monocular checkpoint exceeds the 100 MB upload limit, so it is
+The original depthanything-v2 monocular checkpoint exceeds the 100 MB upload limit, so it is
 distributed as a standard four-volume split ZIP:
 
 | Volume | Size (bytes) |
@@ -150,21 +136,11 @@ checkpoints/mono.pth
 
 The operating system's built-in ZIP viewer may not support split archives. A
 compatible archive manager is therefore recommended for double-click
-extraction. From a terminal, 7-Zip can restore the checkpoint directly:
+extraction. If the `7z` command-line tool is installed, it can restore the
+checkpoint directly:
 
 ```bash
 7z x checkpoints/mono.pth.zip -ocheckpoints
-```
-
-If only Info-ZIP is available, first join the volumes into a temporary ZIP and
-then extract it into `checkpoints/`:
-
-```bash
-cd checkpoints
-zip -s 0 mono.pth.zip --out /tmp/mono.pth.full.zip
-unzip /tmp/mono.pth.full.zip -d .
-rm /tmp/mono.pth.full.zip
-cd ..
 ```
 
 Verify the reconstructed checkpoint before inference:
@@ -174,22 +150,11 @@ sha256sum checkpoints/mono.pth
 # 9322c7a4eab0ae7cb8121216a406c8f5bcefed0f120e224febc518403c771c5d
 ```
 
-The reconstructed `checkpoints/mono.pth` is intentionally ignored by Git. The
-other checkpoints and test PNG files remain configured for Git LFS in
-`.gitattributes`. Enable Git LFS before staging the release:
-
-```bash
-git lfs install
-git add .gitignore .gitattributes checkpoints test_data
-```
-
-Run these commands before the general `git add` step. Each committed monocular
-checkpoint volume remains below 100 MB.
-
 ## Environment
 
 The release was verified with Python 3.11, PyTorch 2.10, and CUDA 12.8. The
-recommended installation uses Conda:
+recommended installation uses Conda for Python and pip CUDA wheels for
+PyTorch; both steps are defined in `environment.yml`:
 
 ```bash
 conda env create -f environment.yml

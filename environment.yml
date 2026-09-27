@@ -1,13 +1,11 @@
 name: deforslfbc
 channels:
-  - pytorch
-  - nvidia
   - conda-forge
 dependencies:
   - python=3.11
   - pip
-  - pytorch=2.10
-  - torchvision=0.25
-  - pytorch-cuda=12.8
   - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch==2.10.0+cu128
+      - torchvision==0.25.0+cu128
       - -r requirements.txt
