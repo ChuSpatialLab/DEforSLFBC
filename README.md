@@ -247,13 +247,11 @@ The paper was accepted by *IEEE Robotics and Automation Letters* in September
 placeholder note below when the final bibliographic record is published.
 
 ```bibtex
-@article{wang2026deforslfbc,
-  title   = {Depth Estimation for Short-Long Focal Binocular Cameras via
-             LUT-Based Pseudo-3D Fusion},
-  author  = {Wang, Ke and Feng, Yaohui and Wu, Bingcao and Liu, Zhanwen and
-             Shen, Shaojie},
-  journal = {IEEE Robotics and Automation Letters},
-  year    = {2026},
-  note    = {Accepted September 2026; DOI and final publication details to appear}
+@article{wang2026depth,
+  title={Depth Estimation for Short-Long Focal Binocular Cameras via LUT-Based Pseudo-3D Fusion},
+  author={Wang, Ke and Feng, Yaohui and Wu, Bingcao and Liu, Zhanwen and Shen, Shaojie},
+  journal={IEEE Robotics and Automation Letters},
+  year={2026},
+  publisher={IEEE}
 }
 ```
